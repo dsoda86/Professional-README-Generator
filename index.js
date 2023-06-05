@@ -56,8 +56,14 @@ ${languages}
 ${installation}
 ## Usage
 ${usage}
+
+
 ![alt-text](${screenshot})
-![alt-text]${demo}
+
+
+![alt-text](${demo})
+
+
 ## Contributors
 ${contributors}
 ## Testing
