@@ -1,12 +1,37 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+
 function createLicenseBadge(license) {
-    if (license !== "none") {
-      return`[![Github License](https://img.shields.io/badge/License-${license}-blue.svg)](https://choosealicense.com/licenses/)`;
-    }else
-      return "";
-  };
+  if (!license || license.length === 0) {
+    throw new Error("Please choose ONE license to use.");
+  }
+
+  // Handle single license selection
+  if (license.length === 1) {
+    const selectedLicense = license[0];
+    if (selectedLicense === "MIT License") {
+      return `[![License](https://img.shields.io/badge/License-MIT%20License-yellow.svg)](https://choosealicense.com/licenses/mit/)`;
+    } else if (selectedLicense === "APACHE License 2.0") {
+      return `[![License](https://img.shields.io/badge/License-APACHE%20License%202.0-red.svg)](https://choosealicense.com/licenses/apache-2.0/)`;
+    } else if (selectedLicense === "Boost Software License 1.0") {
+      return `[![License](https://img.shields.io/badge/License-Boost%20Software%20License%201.0-blue.svg)](https://choosealicense.com/licenses/bsl-1.0/)`;
+    } else if (selectedLicense === "Mozilla Public License 2.0") {
+      return `[![License](https://img.shields.io/badge/License-Mozilla%20Public%20License%202.0-orange.svg)](https://choosealicense.com/licenses/mpl-2.0/)`;
+    } else if (selectedLicense === "GNU AGPLv3") {
+      return `[![License](https://img.shields.io/badge/License-GNU%20AGPLv3-blue.svg)](https://choosealicense.com/licenses/agpl-3.0/)`;
+    } else if (selectedLicense === "GNU GPLv3") {
+      return `[![License](https://img.shields.io/badge/License-GNU%20GPLv3-success.svg)](https://choosealicense.com/licenses/gpl-3.0/)`;
+    } else if (selectedLicense === "The Unlicense") {
+      return `[![License](https://img.shields.io/badge/License-The%20Unlicense-red.svg)](https://choosealicense.com/licenses/unlicense/)`;
+    }
+  }
+
+  throw new Error("Please choose ONE license to use.");
+}
+
+
+
 
 const generateReadme = ({ title, description, link, screenshot, demo, languages, installation, usage, contributors, testing, license, github, email }) => {
     return `# ${title} 
@@ -16,34 +41,37 @@ ${description}
 ## Deployed Application Link
 ${link}
 ## Table of Contents
-* [Screenshot](#screenshot)
-* [Demo](#demo)
 * [Languages & Technologies](#languagesandtechnologies)
+* [Installation](#installation)
 * [Usage](#usage)
 * [Contributors](#contributors)
 * [Testing](#testing)
 * [Questions](#questions)
 * [License](#license)
- 
-## Screenshot
-![alt-text](${screenshot})
-## Demo
-![alt-text]${demo}
+
+
 ## Languages & Technologies Used
 ${languages}
 ## Installation
 ${installation}
 ## Usage
 ${usage}
+![alt-text](${screenshot})
+![alt-text]${demo}
 ## Contributors
 ${contributors}
 ## Testing
 ${testing}
 ## Questions
 Check out my work at [github/${github}](https://github.com/${github}).
+
+
 Please send your questions to  [${email}](mailto:${email}?subject=[GitHub]%20Dev%20Connect).
 ## License
-${license}
+${createLicenseBadge(license)}
+
+
+Click to learn more about this license and other commonly used licenses.
 `;
 };
     
@@ -90,7 +118,7 @@ const main = async() => {
         {
           type: "input ",
           name: "languages",
-          message: "What languages or technologies are used with this application?",
+          message: "What languages or technologies are used with this application?(comma-separated answers)",
           
         },
         {
@@ -106,8 +134,8 @@ const main = async() => {
         {
           type: "checkbox",
           name: "license",
-          message: "What type of license would you like to use for this project?",
-          choices: ["MIT", "APACHE 2.0", "Boost 1.0", "MPL 2.0", "GNU AGPLv3", "GNU GPLv3", "GNU LGPLv3", "none"]
+          message: "What type of license would you like to use for this project?(Please choose ONE)",
+          choices: ["MIT License", "APACHE License 2.0", "Boost Software License 1.0", "Mozilla Public License 2.0", "GNU AGPLv3", "GNU GPLv3", "The Unlicense"]
         },
         {
           type: 'input',
@@ -123,8 +151,8 @@ const main = async() => {
   
     const readmeMarkdownContent = generateReadme(answers);
     try{
-      fs.writeFileSync('README.md', readmeMarkdownContent);
-      console.log('Successfully created README.md!');
+      fs.writeFileSync('exampleReadme.md', readmeMarkdownContent);
+      console.log('Successfully created exampleReadme.md!');
     } catch (err) {
       console.log(err)
     }
