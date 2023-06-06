@@ -4,12 +4,12 @@
 This application was created in order to save time and be an efficient way to create a README.md file for future projects. It uses node.js and the command line to run, give prompts via inquirer,
 and then write the markdown file using the answers to the prompt questions. This template provides a baseline of a high quality README. More info can be added to the file after it has been generated if necessary.
 As the first true backend application that I have created, I learned a lot about node.js, using npm and coding an index.js file to bring the installed dependencies together with functions to generate a new file from scratch.
-## Deployed Application Link
+## Walkthrough Video Link
 https://drive.google.com/file/d/1IGIk2rAzJp9Io5CpSKeUtuz3zuFpta6C/view
 ## Table of Contents
 - [Professional README File Generator](#professional-readme-file-generator)
   - [Description](#description)
-  - [Deployed Application Link](#deployed-application-link)
+  - [Walkthrough Video Link](#walkthrough-video-link)
   - [Table of Contents](#table-of-contents)
   - [Languages \& Technologies Used](#languages--technologies-used)
   - [Installation](#installation)
